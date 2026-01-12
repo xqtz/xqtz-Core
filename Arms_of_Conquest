@@ -1,0 +1,66 @@
+
+setclipboard("https://discord.gg/QZwnfkKS8Y")
+
+game.StarterGui:SetCore("SendNotification", {
+   Title = "Script",
+   Text = "Loading script...",
+   Icon = "",
+   Duration = 5
+})
+
+wait(1)
+
+local start = os.clock()
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("xqtz Core", "Midnight")
+
+--info
+
+local info = Window:NewTab("test")
+local info = info:NewSection("made with love, xqtz")
+
+info:NewLabel("join discord to make suggestions what to add")
+
+--MAIN
+ 
+local Main = Window:NewTab("bullet drop")
+local MainSection = Main:NewSection("no bullet drop")
+ 
+ 
+MainSection:NewButton("no bullet drop", "Halberd", function()
+   game.ReplicatedStorage.WeaponSets.Halberd.["Land Pattern Pistol"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
+end)
+ 
+MainSection:NewButton("no bullet drop (mobile)", "1766 Charleville Musket (mobile)", function()
+   game.ReplicatedStorage.WeaponSets.Halberd.["1766 Charleville Musket"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
+end)
+
+local Credits = Window:NewTab("Credits pls look")
+local Credits = Credits:NewSection("Credits join da discord my nigga")
+ 
+Credits:NewLabel("Made by _.hell._")
+Credits:NewLabel("go in discord and make suggestions")
+Credits:NewLabel("discord https://discord.gg/QZwnfkKS8Y")
+
+-------------------------------------------------------------------------------------
+--things to load
+-------------------------------------------------------------------------------------
+local finish = os.clock()
+
+local time = finish - start
+local rating
+if time < 3 then
+   rating = "fast"
+elseif time < 5 then
+   rating = "acceptable"
+else
+   rating = "slow"
+end
+
+game.StarterGui:SetCore("SendNotification", {
+   Title = "Script",
+   Text = string.format("Script loaded in %.2f seconds (%s loading)", time, rating),
+   Icon = "",
+   Duration = 5
+})
