@@ -1,4 +1,3 @@
-
 setclipboard("https://discord.gg/QZwnfkKS8Y")
 
 game.StarterGui:SetCore("SendNotification", {
@@ -29,11 +28,11 @@ local MainSection = Main:NewSection("no bullet drop")
  
  
 MainSection:NewButton("no bullet drop", "Halberd", function()
-   game.ReplicatedStorage.WeaponSets.Halberd.["Land Pattern Pistol"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
+   game.ReplicatedStorage.WeaponSets.Halberd["Land Pattern Pistol"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
 end)
  
 MainSection:NewButton("no bullet drop (mobile)", "1766 Charleville Musket (mobile)", function()
-   game.ReplicatedStorage.WeaponSets.Halberd.["1766 Charleville Musket"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
+   game.ReplicatedStorage.WeaponSets.Mobile["1766 Charleville Musket"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
 end)
 
 local Credits = Window:NewTab("Credits pls look")
