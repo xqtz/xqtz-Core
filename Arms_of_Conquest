@@ -1,1 +1,60 @@
+-- fast popup gui
+
+local link = "https://discord.gg/QZwnfkKS8Y + loadstring(game:HttpGet([[https://raw.githubusercontent.com/hellclown666/xqtz-Core/refs/heads/main/Arms%20of%20Conquest%20cheat%20for%20roblox]]))()"
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+local player = Players.LocalPlayer
+
+-- gui
+local gui = Instance.new("ScreenGui")
+gui.Name = "NewMenuPopup"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Parent = gui
+frame.Size = UDim2.fromScale(0.35, 0.2)
+frame.Position = UDim2.fromScale(0.325, 0.4)
+frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+frame.BorderSizePixel = 0
+
+local corner = Instance.new("UICorner", frame)
+corner.CornerRadius = UDim.new(0, 12)
+
+local title = Instance.new("TextLabel")
+title.Parent = frame
+title.Size = UDim2.fromScale(1, 0.45)
+title.Position = UDim2.fromScale(0, 0)
+title.BackgroundTransparency = 1
+title.Text = "Here is the new menu"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextScaled = true
+title.Font = Enum.Font.GothamBold
+
+local button = Instance.new("TextButton")
+button.Parent = frame
+button.Size = UDim2.fromScale(0.8, 0.35)
+button.Position = UDim2.fromScale(0.1, 0.55)
+button.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+button.Text = "LINK"
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.TextScaled = true
+button.Font = Enum.Font.GothamBold
+button.BorderSizePixel = 0
+
+local btnCorner = Instance.new("UICorner", button)
+btnCorner.CornerRadius = UDim.new(0, 8)
+
+-- click action
+button.MouseButton1Click:Connect(function()
+    pcall(function()
+        setclipboard(link)
+    end)
+
+    StarterGui:SetCore("SendNotification", {
+        Title = "Link",
+        Text = "Copied to clipboard",
+        Duration = 3
+    })
+end)
 
