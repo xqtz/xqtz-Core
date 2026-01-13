@@ -53,21 +53,47 @@ MainSection:NewButton("no bullet drop (Xbox)", "Xbox", function()
 end)
 
 MainSection:NewButton("No Bullet Drop", "Ranker", function()
-    local player = game.Players.LocalPlayer
-    local StarterGui = game:GetService("StarterGui") -- <- must get service
+    local Players = game:GetService("Players")
+    local StarterGui = game:GetService("StarterGui")
+    local player = Players.LocalPlayer
+    local toolName = "1766 Charleville Musket"
 
-    local tool = player.Backpack:FindFirstChild("1766 Charleville Musket")
-    if not tool then return end
+    local function notify(title, message, duration)
+        duration = duration or 3
+        pcall(function()
+            StarterGui:SetCore("SendNotification", {
+                Title = title,
+                Text = message,
+                Duration = duration
+            })
+        end)
+    end
 
-    tool.Settings.Miscellaneous.BulletDropPerFrame.Value = 0
+    local tool = player.Backpack:FindFirstChild(toolName)
+    if not tool then
+        notify("Error: Weapon Not Found", "Could not locate the musket in your backpack.")
+        return
+    end
 
-    pcall(function()
-        StarterGui:SetCore("SendNotification", {
-            Title = "Success",
-            Text = "Bullet drop disabled",
-            Duration = 3
-        })
+    local value =
+        tool:FindFirstChild("Settings") and
+        tool.Settings:FindFirstChild("Miscellaneous") and
+        tool.Settings.Miscellaneous:FindFirstChild("BulletDropPerFrame")
+
+    if not value then
+        notify("Error: Setting Missing", "Bullet drop setting is unavailable on this weapon.")
+        return
+    end
+  
+    local success, err = pcall(function()
+        value.Value = 0
     end)
+
+    if success and value.Value == 0 then
+        notify("Success", "Bullet drop successfully disabled")
+    else
+        notify("Error: Could Not Apply", "Failed to change the bullet drop setting.")
+    end
 end)
 
 --cred
