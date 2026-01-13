@@ -28,8 +28,8 @@ info:NewLabel("mobile/xbox doesn't get a custom musket")
 
 --no bullet drop
  
-local Main = Window:NewTab("bullet drop")
-local MainSection = Main:NewSection("no bullet drop")
+local Main = Window:NewTab("gun modding")
+local MainSection = Main:NewSection("modding la musket and pistol")
  
 MainSection:NewButton("No Bullet Drop", "Auto-detect weapon", function()
     local Players = game:GetService("Players")
@@ -96,12 +96,77 @@ MainSection:NewButton("No Bullet Drop", "Auto-detect weapon", function()
     end
 end)
 
+MainSection:NewButton("Fast Reload", "Auto-detect weapon", function()
+    local Players = game:GetService("Players")
+    local StarterGui = game:GetService("StarterGui")
+    local player = Players.LocalPlayer
+
+    local supportedWeapons = {
+        "1766 Charleville Musket",
+        "Land Pattern Pistol"
+    }
+
+    local function notify(title, text)
+        pcall(function()
+            StarterGui:SetCore("SendNotification", {
+                Title = title,
+                Text = text,
+                Duration = 4
+            })
+        end)
+    end
+
+    -- Find weapon in backpack
+    local tool
+    for _, name in ipairs(supportedWeapons) do
+        tool = player.Backpack:FindFirstChild(name)
+        if tool then break end
+    end
+
+    if not tool then
+        notify(
+            "Error: Weapon Not Found",
+            "No supported firearm detected in your backpack."
+        )
+        return
+    end
+
+    --finding the thing
+    local settings = tool:FindFirstChild("Settings")
+    local misc = settings and settings:FindFirstChild("Miscellaneous")
+    local reloadSpeed = misc and misc:FindFirstChild("ReloadSpeed")  -- <-- updated
+
+    if not reloadSpeed then
+        notify(
+            "Error: Setting Missing",
+            "Reload speed configuration was not found."
+        )
+        return
+    end
+
+    --changing the val
+    reloadSpeed.Value = 0.1
+
+    --noti for error or not
+    if reloadSpeed.Value == 0.1 then
+        notify(
+            "Success",
+            "Reload speed set to 0.1 for " .. tool.Name .. " 🎯"
+        )
+    else
+        notify(
+            "Error: Change Failed",
+            "The reload speed value could not be applied."
+        )
+    end
+end)
+
 --cred
 
 local Credits = Window:NewTab("Credits")
 local Credits = Credits:NewSection("creds")
  
-Credits:NewLabel("Owner xqtz")
+Credits:NewLabel("Owner jr_xqtz")
 Credits:NewLabel("tester 4fa")
 Credits:NewLabel("https://discord.gg/QZwnfkKS8Y")
 
