@@ -299,7 +299,7 @@ moraleSection:NewButton("Enable Infinite Morale", "Prevents morale loss", functi
 
     -- check current value
     if MoraleLoss.Value >= 1000000 then
-        notify("Notice", "Morale is already maxed ")
+        notify("Notice", "Morale is already maxed")
         return
     end
 
