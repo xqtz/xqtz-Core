@@ -54,19 +54,17 @@ end)
 
 MainSection:NewButton("No Bullet Drop", "Ranker", function()
     local player = game.Players.LocalPlayer
+    local StarterGui = game:GetService("StarterGui") -- <- must get service
 
-    -- find the tool
     local tool = player.Backpack:FindFirstChild("1766 Charleville Musket")
     if not tool then return end
 
-    -- set bullet drop
     tool.Settings.Miscellaneous.BulletDropPerFrame.Value = 0
 
-    -- notify safely
     pcall(function()
-        game.StarterGui:SetCore("SendNotification", {
+        StarterGui:SetCore("SendNotification", {
             Title = "Success",
-            Text = "Bullet drop disabled 🎯",
+            Text = "Bullet drop disabled",
             Duration = 3
         })
     end)
