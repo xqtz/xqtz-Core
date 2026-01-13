@@ -20,7 +20,7 @@ local Window = Library.CreateLib("xqtz Core", "Midnight")
 
 --info
 
-local info = Window:NewTab("xqtz Core for Arms_of_Conquest")
+local info = Window:NewTab("xqtz core Arms of Conquest")
 local info = info:NewSection("made with love, xqtz")
 
 info:NewLabel("join discord to make suggestions what to add")
