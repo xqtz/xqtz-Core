@@ -52,24 +52,25 @@ MainSection:NewButton("no bullet drop (Xbox)", "Xbox", function()
    game.Players.LocalPlayer.Backpack["1766 Charleville Musket"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
 end)
 
-MainSection:NewButton("no bullet drop", "Ranker", function()
+MainSection:NewButton("No Bullet Drop", "Ranker", function()
     local player = game.Players.LocalPlayer
 
+    -- find the tool
     local tool = player.Backpack:FindFirstChild("1766 Charleville Musket")
     if not tool then return end
 
+    -- set bullet drop
     tool.Settings.Miscellaneous.BulletDropPerFrame.Value = 0
 
-    StarterGui:SetCore("SendNotification", {
-        Title = "Success",
-        Text = "Bullet drop disabled 🎯",
-        Duration = 3
-    })
+    -- notify safely
+    pcall(function()
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Success",
+            Text = "Bullet drop disabled 🎯",
+            Duration = 3
+        })
+    end)
 end)
-
-
- 
-
 
 --cred
 
