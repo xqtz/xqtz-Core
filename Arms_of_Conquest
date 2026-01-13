@@ -203,60 +203,60 @@ local function notify(title, msg)
     end)
 end
 
--- main func to ap hitbox
-local function AssignHitbox(player)
+-- track notifications per player
+local notifiedPlayers = {}
+
+-- main hitbox function
+local function ApplyHitbox(player)
     if player == LocalPlayer then return end
-    -- only enemies
     if LocalPlayer.Team and player.Team == LocalPlayer.Team then return end
 
-    local applied = false -- track if we already notified
+    -- wait for character
+    local char = player.Character or player.CharacterAdded:Wait()
+    local root = char:WaitForChild("HumanoidRootPart", 5) -- wait up to 5s
 
-    -- up on RenderStepped
-    local connection
-    connection = RunService.RenderStepped:Connect(function()
-        if not hbeEnabled then
-            if connection then connection:Disconnect() end
-            return
-        end
+    if not root then
+        notify("Error", "HumanoidRootPart not found for "..player.Name)
+        return
+    end
 
-        local char = player.Character
-        if not char then return end
+    -- apply hitbox every frame
+    RunService.RenderStepped:Connect(function()
+        if not hbeEnabled then return end
+        if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then return end
 
-        local root = char:FindFirstChild("HumanoidRootPart")
-        if not root then return end
+        local rootPart = player.Character.HumanoidRootPart
+        rootPart.Size = hitboxSize
+        rootPart.Color = hitboxColor
+        rootPart.CanCollide = false
+        rootPart.Transparency = 0.5
 
-        -- apply hitbox
-        root.Size = hitboxSize
-        root.Color = hitboxColor
-        root.CanCollide = false
-        root.Transparency = 0.5
-
-        -- notify once per player
-        if not applied then
-            notify("Success", "Hitbox applied to " .. player.Name)
-            applied = true
+        if not notifiedPlayers[player] then
+            notify("Success", "Hitbox applied to "..player.Name)
+            notifiedPlayers[player] = true
         end
     end)
 end
 
--- ap to all players alive
-for _, player in ipairs(Players:GetPlayers()) do
-    AssignHitbox(player)
+-- apply to all existing players
+for _, p in ipairs(Players:GetPlayers()) do
+    ApplyHitbox(p)
 end
 
--- ap to new people
+-- apply to new players
 Players.PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function()
-        AssignHitbox(player)
+        ApplyHitbox(player)
     end)
 end)
 
--- re-add people if they died and respawned
+-- reapply for local player respawn
 LocalPlayer.CharacterAdded:Connect(function()
-    for _, player in ipairs(Players:GetPlayers()) do
-        AssignHitbox(player)
+    for _, p in ipairs(Players:GetPlayers()) do
+        ApplyHitbox(p)
     end
 end)
+
 
 -- setting
 local SettingsTab = Window:NewTab("Settings")
