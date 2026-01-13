@@ -33,23 +33,23 @@ local MainSection = Main:NewSection("no bullet drop")
  
  
 MainSection:NewButton("no bullet drop", "Halberd", function()
-   game.ReplicatedStorage.WeaponSets.Halberd["Land Pattern Pistol"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
+   game.Players.LocalPlayer.backpack["Land Pattern Pistol"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
 end)
  
-MainSection:NewButton("no bullet drop (mobile)", "1766 Charleville Musket (mobile)", function()
-   game.ReplicatedStorage.WeaponSets.Mobile["1766 Charleville Musket"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
+MainSection:NewButton("no bullet drop (mobile)", "(mobile)", function()
+   game.Players.LocalPlayer.backpack["1766 Charleville Musket"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
 end)
 
 MainSection:NewButton("no bullet drop", "Officer", function()
-   game.ReplicatedStorage.WeaponSets.Officer["Land Pattern Pistol "].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
+   game.Players.LocalPlayer.backpack["Land Pattern Pistol "].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
 end)
 
 MainSection:NewButton("no bullet drop ", "Ranker", function()
-   game.ReplicatedStorage.WeaponSets.Ranker["1766 Charleville Musket"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
+   game.Players.LocalPlayer.backpack["1766 Charleville Musket"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
 end)
 
 MainSection:NewButton("no bullet drop (Xbox)", "Xbox", function()
-   game.ReplicatedStorage.WeaponSets.Xbox["1766 Charleville Musket"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
+   game.Players.LocalPlayer.backpack["1766 Charleville Musket"].Settings.Miscellaneous.BulletDropPerFrame.Value = 0
 end)
 
 --cred
