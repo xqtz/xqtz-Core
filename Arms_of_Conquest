@@ -66,7 +66,7 @@ MainSection:NewButton("No Bullet Drop", "Auto-detect weapon", function()
         return
     end
 
-    -- Find BulletDrop value
+    --find value
     local settings = tool:FindFirstChild("Settings")
     local misc = settings and settings:FindFirstChild("Miscellaneous")
     local bulletDrop = misc and misc:FindFirstChild("BulletDropPerFrame")
@@ -79,10 +79,10 @@ MainSection:NewButton("No Bullet Drop", "Auto-detect weapon", function()
         return
     end
 
-    -- Apply change
+    --change the drop
     bulletDrop.Value = 0
 
-    -- Verify
+    --notify for a person that wanted this
     if bulletDrop.Value == 0 then
         notify(
             "Success",
